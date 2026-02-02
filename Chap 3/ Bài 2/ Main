@@ -1,1 +1,19 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.bai2chap3;
+
+/**
+ *
+ * @author Admin
+ */
+public class Bai2Chap3 {
+
+    public static void main(String[] args) {
+        for(int j=1;j<=5;j++){
+            new NumberIn("Thread " + j).start();
+        }
+    }
+}
 
