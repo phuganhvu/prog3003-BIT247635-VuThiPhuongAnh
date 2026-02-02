@@ -1,1 +1,30 @@
+package com.mycompany.bai3chap2;
+
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.stream.*;
+
+public class Bai3Chap2 {
+    public static void main(String[] args) {
+
+        CompletableFuture<int[]> future = CompletableFuture.supplyAsync(() -> {
+            return new int[]{1, 2, 5, 3, 100};
+        });
+
+        CompletableFuture<String> result = future.thenApply(arr -> {
+            List<Integer> list = Arrays.stream(arr)
+                    .filter(x -> x % 2 != 0)   // lấy số lẻ
+                    .sorted()                 // sắp xếp tăng
+                    .boxed()
+                    .collect(Collectors.toList());
+
+            return "Kết quả là: " + list;
+        });
+
+        result.thenAccept(System.out::println);
+
+        // chặn main để chờ thread xong
+        result.join();
+    }
+}
 
