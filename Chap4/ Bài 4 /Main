@@ -1,0 +1,20 @@
+import java.util.*;
+import java.util.function.Function;
+
+public class Bai4_FunctionCurrency {
+    public static void main(String[] args) {
+
+        List<String> moneyStrings = Arrays.asList("$10", "$20", "$50");
+
+        Function<String, Integer> currencyToInt =
+                s -> Integer.parseInt(s.replace("$", ""));
+
+        List<Integer> numbers = new ArrayList<>();
+
+        for (String s : moneyStrings) {
+            numbers.add(currencyToInt.apply(s));
+        }
+
+        System.out.println("Converted numbers: " + numbers);
+    }
+}
