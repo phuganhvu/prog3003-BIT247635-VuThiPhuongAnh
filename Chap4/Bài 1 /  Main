@@ -1,0 +1,15 @@
+
+public class Bai1_LambdaMath {
+    public static void main(String[] args) {
+
+        MathOperation add = (a, b) -> a + b;
+        MathOperation subtract = (a, b) -> a - b;
+        MathOperation multiply = (a, b) -> a * b;
+        MathOperation divide = (a, b) -> b != 0 ? a / b : 0;
+
+        System.out.println("Addition: " + add.compute(10, 5));
+        System.out.println("Subtraction: " + subtract.compute(10, 5));
+        System.out.println("Multiplication: " + multiply.compute(10, 5));
+        System.out.println("Division: " + divide.compute(10, 5));
+    }
+}
