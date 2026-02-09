@@ -1,0 +1,15 @@
+import java.util.*;
+
+public class Bai2_SortCities {
+    public static void main(String[] args) {
+
+        List<String> cities = Arrays.asList(
+                "Hanoi", "Ho Chi Minh", "Da Nang", "Hue"
+        );
+
+        Collections.sort(cities, (c1, c2) -> c1.length() - c2.length());
+
+        System.out.println("Cities sorted by length:");
+        cities.forEach(System.out::println);
+    }
+}
