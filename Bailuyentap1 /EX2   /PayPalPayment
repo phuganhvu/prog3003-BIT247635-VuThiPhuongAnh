@@ -1,0 +1,8 @@
+public class PayPalPayment implements Payment {
+    @Override
+    public void pay(double amount) {
+        System.out.println("\nĐang xử lý thanh toán bằng PayPal...");
+        System.out.println("Số tiền: " + amount + " VND");
+        System.out.println("Thanh toán PayPal thành công!");
+    }
+}
