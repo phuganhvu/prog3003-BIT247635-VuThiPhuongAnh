@@ -1,1 +1,13 @@
+public void deleteUser(int id) {
+    String sql = "DELETE FROM users WHERE id = ?";
+    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, id);
+        int rowsDeleted = pstmt.executeUpdate();
 
+        if (rowsDeleted > 0) {
+            System.out.println("Xóa thành công");
+        } else {
+            System.out.println("Không tìm thấy user để xóa");
+        }
+    } catch (SQLException e) { e.printStackTrace(); }
+}
