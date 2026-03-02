@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Nhập số tiền cần thanh toán: ");
+        double amount = scanner.nextDouble();
+
+        System.out.println("\nChọn phương thức thanh toán:");
+        System.out.println("1. Credit Card");
+        System.out.println("2. PayPal");
+        System.out.println("3. Cash");
+        System.out.print("Lựa chọn của bạn: ");
+
+        int choice = scanner.nextInt();
+
+        Payment payment = PaymentFactory.createPayment(choice);
+
+        if (payment != null) {
+            payment.pay(amount);
+        } else {
+            System.out.println("Phương thức không hợp lệ!");
+        }
+
+        scanner.close();
+    }
+}
