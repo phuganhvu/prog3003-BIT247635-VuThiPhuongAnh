@@ -1,0 +1,8 @@
+public class CreditCardPayment implements Payment {
+    @Override
+    public void pay(double amount) {
+        System.out.println("\nĐang xử lý thanh toán bằng Credit Card...");
+        System.out.println("Số tiền: " + amount + " VND");
+        System.out.println("Thanh toán Credit Card thành công!");
+    }
+}
