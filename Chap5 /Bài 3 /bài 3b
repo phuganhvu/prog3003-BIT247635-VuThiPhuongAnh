@@ -1,0 +1,8 @@
+Session session = sessionFactory.openSession();
+Transaction tx = session.beginTransaction();
+
+Product p = new Product("Laptop", 1500);
+session.save(p);
+
+tx.commit();
+session.close();
