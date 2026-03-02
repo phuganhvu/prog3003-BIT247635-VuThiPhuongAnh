@@ -1,1 +1,8 @@
-
+Session session = sessionFactory.openSession();
+String hql = "FROM Product P WHERE P.price > 1000";
+Query<Product> query = session.createQuery(hql, Product.class);
+List<Product> results = query.getResultList();
+for (Product p : results) {
+    System.out.println(p.getName() + " - " + p.getPrice());
+}
+session.close();
