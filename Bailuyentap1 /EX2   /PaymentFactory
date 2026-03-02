@@ -1,0 +1,15 @@
+public class PaymentFactory {
+
+    public static Payment createPayment(int choice) {
+        switch (choice) {
+            case 1:
+                return new CreditCardPayment();
+            case 2:
+                return new PayPalPayment();
+            case 3:
+                return new CashPayment();
+            default:
+                return null;
+        }
+    }
+}
