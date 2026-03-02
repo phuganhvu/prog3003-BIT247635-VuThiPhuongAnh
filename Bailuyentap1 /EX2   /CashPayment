@@ -1,0 +1,8 @@
+public class CashPayment implements Payment {
+    @Override
+    public void pay(double amount) {
+        System.out.println("\nThanh toán bằng tiền mặt...");
+        System.out.println("Số tiền: " + amount + " VND");
+        System.out.println("Thanh toán Cash thành công!");
+    }
+}
