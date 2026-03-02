@@ -1,1 +1,126 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
 
+public class StudentManager {
+
+    private static ArrayList<Student> students = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        while (true) {
+            System.out.println("\n===== QUẢN LÝ SINH VIÊN =====");
+            System.out.println("1. Thêm sinh viên");
+            System.out.println("2. Hiển thị danh sách");
+            System.out.println("3. Tìm sinh viên theo tên");
+            System.out.println("4. Xóa sinh viên theo MSSV");
+            System.out.println("0. Thoát");
+            System.out.print("Chọn chức năng: ");
+
+            String input = scanner.nextLine();   // đọc dạng String để tránh lỗi
+            int choice;
+
+            try {
+                choice = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Vui lòng nhập số hợp lệ!");
+                continue;
+            }
+
+            switch (choice) {
+                case 1:
+                    addStudent();
+                    break;
+                case 2:
+                    displayStudents();
+                    break;
+                case 3:
+                    searchByName();
+                    break;
+                case 4:
+                    deleteByMssv();
+                    break;
+                case 0:
+                    System.out.println("Thoát chương trình.");
+                    return;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ!");
+            }
+        }
+    }
+
+    private static void addStudent() {
+        System.out.print("Nhập MSSV: ");
+        String mssv = scanner.nextLine();
+
+        System.out.print("Nhập tên: ");
+        String name = scanner.nextLine();
+
+        double gpa;
+        while (true) {
+            System.out.print("Nhập GPA: ");
+            try {
+                gpa = Double.parseDouble(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("GPA phải là số!");
+            }
+        }
+
+        students.add(new Student(mssv, name, gpa));
+        System.out.println("Thêm sinh viên thành công!");
+    }
+
+    private static void displayStudents() {
+        if (students.isEmpty()) {
+            System.out.println("Danh sách sinh viên rỗng.");
+            return;
+        }
+
+        System.out.println("\n--- DANH SÁCH SINH VIÊN ---");
+        for (Student s : students) {
+            System.out.println(s);
+        }
+    }
+
+    private static void searchByName() {
+        System.out.print("Nhập tên cần tìm: ");
+        String keyword = scanner.nextLine().toLowerCase();
+
+        boolean found = false;
+
+        for (Student s : students) {
+            if (s.getName().toLowerCase().contains(keyword)) {
+                System.out.println(s);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Không tìm thấy sinh viên.");
+        }
+    }
+
+    private static void deleteByMssv() {
+        System.out.print("Nhập MSSV cần xóa: ");
+        String mssv = scanner.nextLine();
+
+        Iterator<Student> iterator = students.iterator();
+        boolean found = false;
+
+        while (iterator.hasNext()) {
+            if (iterator.next().getMssv().equalsIgnoreCase(mssv)) {
+                iterator.remove();
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            System.out.println("Xóa sinh viên thành công!");
+        } else {
+            System.out.println("Không tìm thấy sinh viên.");
+        }
+    }
+}
