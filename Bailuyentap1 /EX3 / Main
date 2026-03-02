@@ -1,0 +1,72 @@
+import java.util.concurrent.CompletableFuture;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        double transferAmount = 2000;
+
+        CompletableFuture<Void> transaction = authenticateCustomer()
+                .thenCompose(auth -> checkBalance(transferAmount))
+                .thenCompose(balance -> transferMoney(transferAmount))
+                .exceptionally(ex -> {
+                    System.out.println("Giao dịch bị hủy: " + ex.getMessage());
+                    return null;
+                });
+
+        transaction.join(); // đợi hoàn thành
+        System.out.println("Kết thúc chương trình.");
+    }
+
+    // 1️⃣ Xác thực khách hàng
+    static CompletableFuture<Boolean> authenticateCustomer() {
+        return CompletableFuture.supplyAsync(() -> {
+            sleep(2000); // giả lập 2 giây
+            System.out.println("Đang xác thực khách hàng...");
+
+            boolean isValid = true; // đổi thành false để test lỗi
+
+            if (!isValid) {
+                throw new RuntimeException("Xác thực thất bại!");
+            }
+
+            System.out.println("Xác thực thành công.");
+            return true;
+        });
+    }
+
+    // 2️⃣ Kiểm tra số dư
+    static CompletableFuture<Double> checkBalance(double amount) {
+        return CompletableFuture.supplyAsync(() -> {
+            sleep(3000); // giả lập 3 giây
+            System.out.println("Đang kiểm tra số dư...");
+
+            double balance = 5000;
+
+            if (balance < amount) {
+                throw new RuntimeException("Không đủ số dư!");
+            }
+
+            System.out.println("Số dư đủ để giao dịch.");
+            return balance;
+        });
+    }
+
+    // 3️⃣ Thực hiện chuyển tiền
+    static CompletableFuture<Void> transferMoney(double amount) {
+        return CompletableFuture.runAsync(() -> {
+            sleep(1000); // giả lập 1 giây
+            System.out.println("Đang thực hiện chuyển tiền " + amount + "...");
+            System.out.println("Chuyển tiền thành công!");
+        });
+    }
+
+    // Hàm sleep giả lập độ trễ
+    static void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
